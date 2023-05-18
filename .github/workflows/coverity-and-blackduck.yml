@@ -26,17 +26,20 @@ jobs:
       - name: Synopsys Application Security Testing
         uses: synopsys-sig/synopsys-action@main
         with:
-          bridge_download_url: ${{ env.MACOSX_BRIDGE_URL }}
-
-          coverity_url: ${{ secrets.COVERITY_URL }}
-          coverity_user: ${{ secrets.COVERITY_USER }}
-          coverity_passphrase: ${{ secrets.COVERITY_PASSPHRASE }}
-          coverity_project_name: ${{ github.event.repository.name }}
-          coverity_stream_name: ${{ github.event.repository.name }}
-
+          blackduck_apiToken: ${{ secrets.BLACKDUCK_API_TOKEN }}
           blackduck_url: ${{ secrets.BLACKDUCK_URL }}
-          blackduck_apiToken: ${{ secrets.BLACKDUCK_TOKEN }}
+
+          # Optional parameter. By default, pushes will initiate a full "intelligent" scan and pull requests
+          # will initiate a rapid scan.
           blackduck_scan_full: false
-        env:
-          DETECT_BLACKDUCK_RAPID_COMPARE_MODE: BOM_COMPARE_STRICT
-          MACOSX_BRIDGE_URL: "https://artifactory.internal.synopsys.com/artifactory/clops-local/clops.sig.synopsys.com/synopsys-bridge/0.1.229/synopsys-bridge-0.1.229-macosx.zip"
+          # Required parameter if blackduck_automation_fixpr is enabled
+          # Make sure GITHUB_TOKEN have appropriate permissions
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          # Optional parameter. By default, create fix pull requests if vulnerabilities are reported
+          # Passing false will disable fix pull request creation 
+          blackduck_automation_fixpr: true
+          # Optional parameter. The values could be. ALL|NONE|BLOCKER|CRITICAL|MAJOR|MINOR|OK|TRIVIAL|UNSPECIFIED
+          # Single parameter
+          blackduck_scan_failure_severities: "ALL"
+          # multiple parameters
+          # blackduck_scan_failure_severities: "BLOCKER,CRITICAL,TRIVIAL"ridge-0.1.229-macosx.zip"
