@@ -37,9 +37,9 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           # Optional parameter. By default, create fix pull requests if vulnerabilities are reported
           # Passing false will disable fix pull request creation 
-          blackduck_automation_fixpr: true
+          blackduck_automation_fixpr: "ALL"
           # Optional parameter. The values could be. ALL|NONE|BLOCKER|CRITICAL|MAJOR|MINOR|OK|TRIVIAL|UNSPECIFIED
           # Single parameter
-          blackduck_scan_failure_severities: "ALL"
+          blackduck_scan_failure_severities: "BLOCKER"
           # multiple parameters
           # blackduck_scan_failure_severities: "BLOCKER,CRITICAL,TRIVIAL"ridge-0.1.229-macosx.zip"
